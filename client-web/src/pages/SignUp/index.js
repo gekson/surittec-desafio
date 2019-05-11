@@ -9,7 +9,7 @@ import api from "../../services/api";
 
 class SignUp extends Component {
   state = {
-    username: "",
+    login: "",
     email: "",
     password: "",
     error: ""
@@ -17,12 +17,12 @@ class SignUp extends Component {
 
   handleSignUp = async e => {
     e.preventDefault();
-    const { username, email, password } = this.state;
-    if (!username || !email || !password) {
+    const { login, email, password } = this.state;
+    if (!login || !email || !password) {
       this.setState({ error: "Preencha todos os dados para se cadastrar" });
     } else {
       try {
-        await api.post("/users", { username, email, password });
+        await api.post("/api/auth/signup", { login, email, password });
         this.props.history.push("/");
       } catch (err) {
         console.log(err);
@@ -40,7 +40,7 @@ class SignUp extends Component {
           <input
             type="text"
             placeholder="Nome de usuário"
-            onChange={e => this.setState({ username: e.target.value })}
+            onChange={e => this.setState({ login: e.target.value })}
           />
           <input
             type="email"

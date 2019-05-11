@@ -38,7 +38,7 @@ import com.surittec.clientcrud.util.Constants;
  *
  */
 @RestController
-@RequestMapping("/api/clientes")
+@RequestMapping("/api/clients")
 public class ClientController {
 
 	@Autowired

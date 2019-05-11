@@ -5,12 +5,37 @@ import Logo from "../../assets/logo.svg";
 import { logout } from "../../services/auth";
 import Button from "./components/Button";
 import { Form, Container, ButtonContainer } from "./styles";
+import TableRow from './components/TableRow';
+import api from "../../services/api";
 
 
-class App extends Component {
-  
+class App extends Component {  
 
-   state = {
+  constructor(props) {
+      super(props);
+      this.state = {clients: []};
+    }
+
+    componentDidMount(){
+      this.loadClients();      
+    }
+
+    loadClients = async () => {
+      
+      try {
+        const response = await api.get("/api/clients/all");
+        this.setState({ clients: response.data });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    tabRow(){
+      return this.state.clients.map(function(object, i){
+          return <TableRow obj={object} key={i} />;
+      });
+    }
+
+  state = {
     login: "",
     email: "",
     password: "",
@@ -36,30 +61,22 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-      <Container>
-        <Form onSubmit={this.handleSignUp}>
-          <img src={Logo} alt="logo" />
-          {this.state.error && <p>{this.state.error}</p>}
-          <input
-            type="text"
-            placeholder="Nome de usuário"
-            onChange={e => this.setState({ login: e.target.value })}
-          />
-          <input
-            type="email"
-            placeholder="Endereço de e-mail"
-            onChange={e => this.setState({ email: e.target.value })}
-          />
-          <input
-            type="password"
-            placeholder="Senha"
-            onChange={e => this.setState({ password: e.target.value })}
-          />
-          <button type="submit">Cadastrar</button>
-          <hr />
-          <Link to="/">Fazer login</Link>
-        </Form>
-      </Container>
+      <div>
+          <h3 align="center">Clientes</h3>
+          <table className="table table-striped" style={{ marginTop: 20 }}>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>cpf</th>
+                <th colSpan="2">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              { this.tabRow() }
+            </tbody>
+          </table>
+        </div>
       {this.renderActions()}
       </Fragment>
     );

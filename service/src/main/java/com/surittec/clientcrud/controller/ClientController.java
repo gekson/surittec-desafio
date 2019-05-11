@@ -52,7 +52,7 @@ public class ClientController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
 	
-	@GetMapping
+	@GetMapping("/all")
     public PageResponse<ClientResponse> getAllClient(@CurrentUser PrincipalUser currentUser,
                                                 @RequestParam(value = "page", defaultValue = Constants.DEFAULT_PAGE_NUMBER) int page,
                                                 @RequestParam(value = "size", defaultValue = Constants.DEFAULT_PAGE_SIZE) int size) {

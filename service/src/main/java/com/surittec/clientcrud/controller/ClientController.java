@@ -60,7 +60,7 @@ public class ClientController {
     }
 	
 	@PostMapping("/add")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAuthority('PERMISSAO_ADMIN')")
     public ResponseEntity<?> addClient(@Valid @RequestBody ClientRequest clientRequest) {
         Client client = clientService.addClient(clientRequest);
 

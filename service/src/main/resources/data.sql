@@ -1,6 +1,7 @@
 INSERT INTO permits(name) VALUES('PERMISSAO_ADMIN');
 INSERT INTO permits(name) VALUES('PERMISSAO_COMUM');
 
+--password: 123456
 INSERT INTO users(login, password, CREATED_AT, UPDATED_AT) VALUES('admin', '$2a$10$1zhxT2mb6bnNsz9i1Vh5veKBAMAxBfjBhXYEYQjhDXzGWGWyIo70i', '2019-05-10', '2019-05-10');
 INSERT INTO users(login, password, CREATED_AT, UPDATED_AT) VALUES('comum', '$2a$10$1zhxT2mb6bnNsz9i1Vh5veKBAMAxBfjBhXYEYQjhDXzGWGWyIo70i', '2019-05-10', '2019-05-10');
 

@@ -58,32 +58,13 @@ class App extends Component {
     this.props.history.push("/");
   };
 
-  renderNewButton() {
-    return (      
-      <NewButtonContainer onPress={this.handleNewRealtyPress}>
-        <Button color="#222" >
-          <i className="fa fa-plus-circle" />
-        </Button>
-      </NewButtonContainer>
-    );
-  }
-
-  // renderActions() {
-  //   return (      
-  //     <ButtonContainer>
-  //       <Button color="#222" onClick={this.handleLogout}>
-  //         <i className="fa fa-times" />
-  //       </Button>
-  //     </ButtonContainer>
-  //   );
-  // }
-
+  
   renderActions() {
     return (
       <ButtonContainer>
         <Button
           color="#fc6963"
-          onClick={() => this.setState({ addActivate: true })}
+          onClick={this.handleAddProperty}
         >
           <i className="fa fa-plus" />
         </Button>
@@ -92,28 +73,7 @@ class App extends Component {
         </Button>
       </ButtonContainer>
     );
-  }
-
-  renderButtonAdd() {
-    return (
-      this.state.addActivate && (
-        <PointReference>
-          <i className="fa fa-map-marker" />
-          <div>
-            <button onClick={this.handleAddProperty} type="button">
-              Adicionar
-            </button>
-            <button
-              onClick={() => this.setState({ addActivate: false })}
-              className="cancel"
-            >
-              Cancelar
-            </button>
-          </div>
-        </PointReference>
-      )
-    );
-  }
+  }  
 
   handleAddProperty = () => {
     const { match, history } = this.props;
@@ -146,10 +106,10 @@ class App extends Component {
             </tbody>
           </table>
         </div>
-        {!addActivate && <Properties match={match} properties={properties} />}
-      {this.renderNewButton()}
+        
+      
       {this.renderActions()}      
-      {this.renderButtonAdd()}
+      
       <ModalRoute
         path={`${match.url}/clients/add`}
         parentPath={match.url}

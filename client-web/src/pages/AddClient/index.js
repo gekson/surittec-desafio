@@ -22,29 +22,25 @@ class AddClient extends Component {
       name: "",
       cpf: "",
       cep: "",
+      logradouro: "",
+      bairro: "",
+      cidade: "",
+      uf: "",
+      complemento: "",
       error: ""
     };
   
     componentDidMount() {
-      const params = querySearch(this.props.location.search);
-      if (
-        !params.hasOwnProperty("name") ||
-        !params.hasOwnProperty("cpf")
-      ) {
-        alert("É necessário definir o nome e cpf.");
-        this.props.history.push("/app");
-      }
-  
-      this.setState({ ...params });
+      
     }
 
     handleSubmit = async e => {
         e.preventDefault();
     
         try {
-          const { name, cpf, cep } = this.state;
+          const { name, cpf, cep, logradouro, bairro, cidade, uf, complemento } = this.state;
     
-          if (!name || !cpf || !cep ) {
+          if (!name || !cpf || !cep || !logradouro || !bairro || !cidade || !uf) {
             this.setState({ error: "Preencha todos os campos" });
             return;
           }
@@ -52,11 +48,23 @@ class AddClient extends Component {
           const { data: { id } } = await api.post("/api/clients/add", {
             name,
             cpf,
-            cep
+            cep,
+            logradouro,
+            bairro,
+            cidade,
+            uf,
+            complemento
           });
+
+          this.props.history.push("/app");
         } catch (err) {
-            this.setState({ error: "Ocorreu algum erro ao adicionar o imóvel" });
+          console.log(err);
+          if (err.response.status === 403) {
+              this.setState({ error: "Usuário sem permissão para adicionar Cliente." });
+          }else{
+            this.setState({ error: "Ocorreu algum erro ao adicionar o cliente" });          
           }
+        }
     };
 
     handleCancel = e => {
@@ -85,6 +93,32 @@ class AddClient extends Component {
             type="text"
             placeholder="CEP"
             onChange={e => this.setState({ cep: e.target.value })}
+        />
+
+        <input
+            type="text"
+            placeholder="Logradouro"
+            onChange={e => this.setState({ logradouro: e.target.value })}
+        />
+        <input
+            type="text"
+            placeholder="Bairro"
+            onChange={e => this.setState({ bairro: e.target.value })}
+        />
+        <input
+            type="text"
+            placeholder="Cidade"
+            onChange={e => this.setState({ cidade: e.target.value })}
+        />
+        <input
+            type="text"
+            placeholder="UF"
+            onChange={e => this.setState({ uf: e.target.value })}
+        />
+        <input
+            type="text"
+            placeholder="Complemento"
+            onChange={e => this.setState({ complemento: e.target.value })}
         />
         
         <div className="actions">

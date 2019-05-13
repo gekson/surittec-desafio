@@ -82,7 +82,7 @@ paddingVertical: 20px;
 backgroundColor: #fc6663;
 `;
 
-export const ButtonText = styled.Text`
+export const ButtonText = styled(Text)`
 color: #fff;
 fontSize: 16px;
 textAlign: center;

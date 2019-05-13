@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import querySearch from "stringquery";
 import classNames from "classnames";
 import PropTypes from "prop-types";
+import {TextInputMask} from 'react-masked-text';
 
-import { Form, File } from "./styles";
+import { Form } from "./styles";
 
 import api from "../../services/api";
+import MaskedInput from 'react-text-mask'
+import ViaCep from 'react-via-cep';
 
 class AddClient extends Component {
+   
     static propTypes = {
       location: PropTypes.shape({
         search: PropTypes.string
@@ -71,8 +74,31 @@ class AddClient extends Component {
         e.preventDefault();
       
         this.props.history.push("/app");
-      };
-    
+    };
+
+    getCep = e => {      
+      e.preventDefault();
+      const { cep, logradouro } = this.state;
+      const url = `https://viacep.com.br/ws/${cep}/json`;      
+      try {
+       const { data } = fetch(url)
+        .then(response => response.json())
+        .then(json => {
+          console.log(json.logradouro);                    
+          const newState = {            
+            logradouro: json.logradouro,
+            bairro: json.bairro,
+            complemento: json.complemento,
+            cidade: json.localidade,
+            uf: json.uf
+          }}); 
+      
+      } catch (err) {
+          console.log(err);          
+            this.setState({ error: "Ocorreu algum erro ao buscar o cep" });                    
+      }
+    }    
+
     render() {
     return (
         <Form onSubmit={this.handleSubmit}>
@@ -80,20 +106,27 @@ class AddClient extends Component {
         <hr />
         {this.state.error && <p>{this.state.error}</p>}
         <input
-            type="text"
+            type="text" 
             placeholder="Nome"
             onChange={e => this.setState({ name: e.target.value })}
-        />
-        <input
-            type="text"
-            placeholder="CPF"
-            onChange={e => this.setState({ cpf: e.target.value })}
-        />
-        <input
-            type="text"
-            placeholder="CEP"
-            onChange={e => this.setState({ cep: e.target.value })}
-        />
+        />             
+        <MaskedInput
+          mask={[/[1-9]/, /\d/, /\d/,'.',/[1-9]/, /\d/, /\d/,'.',/[1-9]/, /\d/, /\d/,'-',/\d/, /\d/]}
+          className="form-control"
+          placeholder="CPF"
+          guide={false}          
+          onBlur={this.getCep}
+          onChange={e => this.setState({ cpf: e.target.value })}
+        />        
+        
+        <MaskedInput
+          mask={[/[1-9]/, /\d/, /\d/, /\d/, /\d/, '-',/[1-9]/, /\d/, /\d/]}
+          className="form-control"
+          placeholder="CEP"
+          guide={false}          
+          onBlur={() => {}}
+          onChange={e => this.setState({ cep: e.target.value })}
+        />             
 
         <input
             type="text"
@@ -125,6 +158,9 @@ class AddClient extends Component {
             <button type="submit">Adicionar</button>
             <button onClick={this.handleCancel} className="cancel">
             Cancelar
+            </button>
+            <button onClick={this.getCep} className="cancel">
+            CEP
             </button>
         </div>
         </Form>

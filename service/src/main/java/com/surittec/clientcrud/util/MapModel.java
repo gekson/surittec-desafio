@@ -17,7 +17,9 @@ public class MapModel {
         ClientResponse clienteResponse = new ClientResponse();
         clienteResponse.setId(client.getId());
         clienteResponse.setName(client.getNome());
-        clienteResponse.setCreatedAt(client.getCreatedAt());
+        clienteResponse.setCreatedAt(client.getCreatedAt());       
+        clienteResponse.setCpf(client.getCpf());
+        clienteResponse.setCep(client.getCep());
 
         return clienteResponse;
     }

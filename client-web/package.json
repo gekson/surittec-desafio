@@ -4,13 +4,17 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "classnames": "^2.2.6",
     "font-awesome": "^4.7.0",
     "polished": "^3.3.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-dropzone": "^10.1.4",
     "react-router-dom": "^5.0.0",
+    "react-router-modal": "^1.5.2",
     "react-scripts": "3.0.1",
+    "stringquery": "^1.0.8",
     "styled-components": "^4.2.0"
   },
   "scripts": {

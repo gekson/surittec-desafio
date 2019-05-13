@@ -59,7 +59,7 @@ public class ClientController {
         return clientService.getAllClients(currentUser, page, size);
     }
 	
-	@PostMapping
+	@PostMapping("/add")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> addClient(@Valid @RequestBody ClientRequest clientRequest) {
         Client client = clientService.addClient(clientRequest);

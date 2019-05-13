@@ -21,4 +21,11 @@ public class ClientResponse {
 	private String name;
 	private UserSummary createdBy;
     private Instant createdAt;
+    private String cpf;
+	private String cep;
+	private String logradouro;
+	private String bairro;
+	private String cidade;
+	private String uf;
+	private String complemento;
 }

@@ -10,12 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
-import com.surittec.clientcrud.audit.UserAndDateAudit;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -25,9 +22,9 @@ import lombok.Setter;
  *
  */
 @Entity
-@Table(name = "clients")
+@Table(name = "emails")
 @Getter @Setter
-public class Client extends UserAndDateAudit {
+public class Email {
 
 	/**
 	 * 
@@ -39,40 +36,7 @@ public class Client extends UserAndDateAudit {
     private Long id;
 	
 	@NotBlank
-    @Size(max = 100, min = 3)
+    @Size(max = 100)
 	@Column
-    private String nome;
-	
-	@NotBlank
-	@Column
-	private String cpf;
-	
-	@NotBlank
-	@Column
-	private String cep;
-	
-	@NotBlank
-	@Column
-	private String logradouro;
-	
-	@NotBlank
-	@Column
-	private String bairro;
-	
-	@NotBlank
-	@Column
-	private String cidade;
-	
-	@NotBlank
-	@Column
-	private String uf;
-	
-	@Column
-	private String complemento;
-	
-	@OneToMany
-	private List<Phone> phones;
-	
-	@OneToMany
-	private List<Email> emails;
+    private String email;
 }

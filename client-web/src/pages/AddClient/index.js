@@ -81,17 +81,17 @@ class AddClient extends Component {
       const { cep, logradouro } = this.state;
       const url = `https://viacep.com.br/ws/${cep}/json`;      
       try {
-       const { data } = fetch(url)
+       fetch(url)
         .then(response => response.json())
         .then(json => {
-          console.log(json.logradouro);                    
-          const newState = {            
-            logradouro: json.logradouro,
+          console.log(json.logradouro);    
+          this.setState({ logradouro: json.logradouro,
             bairro: json.bairro,
             complemento: json.complemento,
             cidade: json.localidade,
             uf: json.uf
-          }}); 
+         });                      
+        }); 
       
       } catch (err) {
           console.log(err);          
@@ -124,28 +124,32 @@ class AddClient extends Component {
           className="form-control"
           placeholder="CEP"
           guide={false}          
-          onBlur={() => {}}
+          onBlur={ this.getCep.bind(this) }
           onChange={e => this.setState({ cep: e.target.value })}
         />             
 
         <input
             type="text"
             placeholder="Logradouro"
+            value={ this.state.logradouro}
             onChange={e => this.setState({ logradouro: e.target.value })}
         />
         <input
             type="text"
             placeholder="Bairro"
+            value={ this.state.bairro}
             onChange={e => this.setState({ bairro: e.target.value })}
         />
         <input
             type="text"
             placeholder="Cidade"
+            value={ this.state.cidade}
             onChange={e => this.setState({ cidade: e.target.value })}
         />
         <input
             type="text"
             placeholder="UF"
+            value={ this.state.uf}
             onChange={e => this.setState({ uf: e.target.value })}
         />
         <input
@@ -159,9 +163,7 @@ class AddClient extends Component {
             <button onClick={this.handleCancel} className="cancel">
             Cancelar
             </button>
-            <button onClick={this.getCep} className="cancel">
-            CEP
-            </button>
+            
         </div>
         </Form>
     );

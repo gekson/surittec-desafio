@@ -5,6 +5,8 @@ display: flex;
 flex-direction: column;
 align-items: center;
 padding: 10px 20px;
+height: 600px;
+width: 600px;
 p {
   color: #ff3333;
   margin-bottom: 15px;
@@ -41,7 +43,6 @@ a {
 div.actions {
   display: flex;
   margin-top: 15px;
-  width: 100%;
   justify-content: space-between;
   button {
     color: #ffffff;
